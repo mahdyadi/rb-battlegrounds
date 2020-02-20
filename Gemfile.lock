@@ -20,6 +20,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (~> 2.1.4)
   rspec (~> 3.9)
 
 BUNDLED WITH
