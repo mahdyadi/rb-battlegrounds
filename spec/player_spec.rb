@@ -20,7 +20,9 @@ class MockShip
 end
 
 RSpec.describe Player do
+
     describe ".initialize" do
+
         context "When passed only with field-compliant object" do
             it "Should set field member variable successfully" do
                 field_compliant_obj = MockField.new
@@ -42,6 +44,15 @@ RSpec.describe Player do
             it "Should successfully be executed" do
                 field_compliant_obj = MockField.new
                 expect{Player.new(field_compliant_obj,10)}.not_to raise_error
+            end
+
+            it "Should raise error if passed field-compliant object doesn't have #place_object method" do
+                non_field_compliant_obj = Class.new do
+                    def initialize
+                    end
+                end.new
+
+                expect{player_in_test = Player.new(non_field_compliant_obj,10)}.to raise_error
             end
         end
     end
