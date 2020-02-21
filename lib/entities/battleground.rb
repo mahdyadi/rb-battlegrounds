@@ -30,7 +30,6 @@ class Battleground
 
     def place_object(obj,position)
         raise ArgumentError,"passed object/first argument doesn't have orientation" unless obj.respond_to?(:orientation)
-        raise ArgumentError,"passed object/first argument doesn't have length" unless obj.respond_to?(:orientation)
 
         raise ArgumentError,"passed object/first argument's length should be a number" unless obj.length.is_a?(Numeric)
 

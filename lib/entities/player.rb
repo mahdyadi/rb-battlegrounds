@@ -1,6 +1,6 @@
 class Player
-
-    def initialize()
+    def initialize(field)
+        @field = field
     end
 
     def attack_location(x,y)
