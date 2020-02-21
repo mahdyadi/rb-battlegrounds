@@ -2,6 +2,15 @@ require_relative "../lib/entities/player.rb"
 
 class MockField
     def initialize
+        @field = {}
+    end
+
+    def get_object((x,y))
+        return @field["#{x}#{y}"]
+    end
+
+    def place_object(obj,(x,y))
+        @field["#{x}#{y}"] = obj
     end
 end
 
@@ -30,12 +39,9 @@ RSpec.describe Player do
         end
 
         context "When passed with field-compliant object and ammunition number" do
-            it "Should successfully set field member var and ammo number var" do
+            it "Should successfully be executed" do
                 field_compliant_obj = MockField.new
-                player_in_test = Player.new(field_compliant_obj,10)
-
-                expect(player_in_test.ammo).to eq(10)
-                expect()
+                expect{Player.new(field_compliant_obj,10)}.not_to raise_error
             end
         end
     end
@@ -62,8 +68,8 @@ RSpec.describe Player do
         context "When passed with ship object and position as argument" do
             it "Should successfully place ship in the specified field" do
                 mock_ship = MockShip.new
-                expect{@player_in_test.place_ship(mock_ship,[0,0])}
-                placed_ship = @mock_field.get_ship([0,0])
+                expect{@player_in_test.place_ship(mock_ship,[0,0])}.not_to raise_error
+                placed_ship = @mock_field.get_object([0,0])
                 expect(placed_ship == mock_ship).to eq(true)
             end
         end
