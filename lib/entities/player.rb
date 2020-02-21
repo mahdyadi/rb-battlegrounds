@@ -4,6 +4,8 @@ class Player
 
         raise ArgumentError,"passed field object should not be numeric" unless !field.is_a?(Numeric)
 
+        raise ArgumentError,"passed field object should have #place_object method" unless field.respond_to?(:place_object)
+
         @field = field
         @ammo = ammunition
     end
