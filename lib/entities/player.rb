@@ -6,11 +6,19 @@ class Player
 
     raise ArgumentError, "passed field object should have #place_object method" unless field.respond_to?(:place_object)
 
+    unless field.respond_to?(:get_object)
+        raise "passed field object should have defined #get_object method"
+    end
+
     @field = field
     @ammo = ammunition
   end
 
-  def attack_location(x, y)
+  def receive_attack((x,y))
+    ship = @field.get_object([x,y])
+    unless ship != nil
+        return -1
+    end
   end
 
   def place_ship(ship, (x, y))

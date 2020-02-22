@@ -85,9 +85,15 @@ RSpec.describe Player do
   end
 
   describe '#receive_attack' do
+    before(:each) do
+        @mock_field = MockField.new
+        @player_in_test = Player.new(@mock_field, 10)
+    end
+
     context 'When passed with location of the attack' do
       it 'Should return -1 if no ship is in the position' do
-        expect { @player_in_test.receive_attack([0, 0]) }.to eq(-1)
+        result = @player_in_test.receive_attack([0, 0])
+        expect(result).to eq(-1)
       end
     end
   end
