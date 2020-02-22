@@ -12,6 +12,6 @@ fieldSetter = FieldSetter.new(cliPresenter)
 inputPhaseExecutor = InputPhaseExecutor.new(cliPresenter)
 battlePhaseExecutor = BattlePhaseExecutor.new(cliPresenter)
 
-cliController = CLIController.new(fieldSetter,inputPhaseExecutor,battlePhaseExecutor)
+cliController = CLIController.new(fieldSetter, inputPhaseExecutor, battlePhaseExecutor)
 
 cliController.StartGame
