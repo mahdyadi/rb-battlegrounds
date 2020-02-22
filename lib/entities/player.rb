@@ -17,10 +17,10 @@ class Player
   def receive_attack((x, y))
     ship = @field.get_object([x, y])
     unless ship != nil
-      return -1
+      return :missed
     end
 
-    return 0
+    return :destroyed
   end
 
   def place_ship(ship, (x, y))
