@@ -17,7 +17,14 @@ class MockField
 end
 
 class MockShip
-  def initialize; end
+  def initialize(health)
+    @health = health
+  end
+
+  def receive_damage
+    @health = @health-1
+    return @health
+  end
 end
 
 RSpec.describe Player do
@@ -69,14 +76,14 @@ RSpec.describe Player do
 
     context 'When passed with ship object as argument' do
       it 'Should raise error' do
-        mock_ship = MockShip.new
+        mock_ship = MockShip.new(1)
         expect { @player_in_test.place_ship(mock_ship) }
       end
     end
 
     context 'When passed with ship object and position as argument' do
       it 'Should successfully place ship in the specified field' do
-        mock_ship = MockShip.new
+        mock_ship = MockShip.new(1)
         expect { @player_in_test.place_ship(mock_ship, [0, 0]) }.not_to raise_error
         placed_ship = @mock_field.get_object([0, 0])
         expect(placed_ship == mock_ship).to eq(true)
@@ -86,14 +93,21 @@ RSpec.describe Player do
 
   describe '#receive_attack' do
     before(:each) do
-        @mock_field = MockField.new
-        @player_in_test = Player.new(@mock_field, 10)
+      @mock_field = MockField.new
+      @player_in_test = Player.new(@mock_field, 10)
     end
 
     context 'When passed with location of the attack' do
       it 'Should return -1 if no ship is in the position' do
         result = @player_in_test.receive_attack([0, 0])
         expect(result).to eq(-1)
+      end
+
+      it "should return 0 if the ship's on that position is destroyed because of the attack" do
+        mock_ship = MockShip.new(1)
+        @mock_field.place_object(mock_ship, [0, 0])
+        result = @player_in_test.receive_attack([0, 0])
+        expect(result).to eq(0)
       end
     end
   end
