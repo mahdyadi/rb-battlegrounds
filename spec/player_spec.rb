@@ -98,16 +98,16 @@ RSpec.describe Player do
     end
 
     context 'When passed with location of the attack' do
-      it 'Should return -1 if no ship is in the position' do
+      it 'Should return :missed if no ship is found' do
         result = @player_in_test.receive_attack([0, 0])
-        expect(result).to eq(-1)
+        expect(result).to eq(:missed)
       end
 
-      it "should return 0 if the ship's on that position is destroyed because of the attack" do
+      it "should return :destroyed if the ship is found and destroyed" do
         mock_ship = MockShip.new(1)
         @mock_field.place_object(mock_ship, [0, 0])
         result = @player_in_test.receive_attack([0, 0])
-        expect(result).to eq(0)
+        expect(result).to eq(:destroyed)
       end
     end
   end
